@@ -1,17 +1,17 @@
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const port = 8125;
 
-http.createServer(function (request, response) {
-    console.log('request ', request.url);
+http.createServer((request, response) => {
 
-    var filePath = '.' + request.url;
+    let filePath = '.' + request.url;
     if (filePath == './') {
         filePath = './index.html';
     }
 
-    var extname = String(path.extname(filePath)).toLowerCase();
-    var mimeTypes = {
+    let extname = String(path.extname(filePath)).toLowerCase();
+    const mimeTypes = {
         '.html': 'text/html',
         '.js': 'text/javascript',
         '.css': 'text/css',
@@ -29,15 +29,13 @@ http.createServer(function (request, response) {
         '.wasm': 'application/wasm'
     };
 
-    var contentType = mimeTypes[extname] || 'application/octet-stream';
+    let contentType = mimeTypes[extname] || 'application/octet-stream';
 
-    fs.readFile(filePath, function(error, content) {
+    fs.readFile(filePath,(error, data) => {
         if (error) {
             if(error.code == 'ENOENT') {
-                fs.readFile('./404.html', function(error, content) {
-                    response.writeHead(404, { 'Content-Type': 'text/html' });
-                    response.end(content, 'utf-8');
-                });
+                response.writeHead(404, { 'Content-Type': 'text/html' });
+                response.end(data, 'utf-8');
             }
             else {
                 response.writeHead(500);
@@ -46,9 +44,9 @@ http.createServer(function (request, response) {
         }
         else {
             response.writeHead(200, { 'Content-Type': contentType });
-            response.end(content, 'utf-8');
+            response.end(data, 'utf-8');
         }
     });
 
-}).listen(8125);
+}).listen(port);
 console.log('Server running at http://127.0.0.1:8125/');
