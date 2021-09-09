@@ -1,6 +1,7 @@
 let taskDataBase = [];
 let status = "all";
 let countId = 0;
+const downloadBtn = document.querySelector(".download-btn");
 
 function addTask() {
   const inputValue = document.querySelector("input");
@@ -142,3 +143,26 @@ function filterTask() {
   status = filterELChild;
   renderPage();
 }
+
+const downloadTodos = (filename, text) => {
+  const aElement = document.createElement('a');
+  aElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  aElement.setAttribute('download', filename);
+  aElement.style.display = 'none';
+  document.body.appendChild(aElement);
+  aElement.click();
+  document.body.removeChild(aElement);
+}
+
+downloadBtn.addEventListener("click", () => {
+  debugger
+  if (taskDataBase.length == '0') alert('You do not add any todo task');
+  else {
+    const jsnoArr = JSON.stringify(taskDataBase);
+    let filename = "todos.json";
+    downloadTodos(filename, jsnoArr);
+  }
+},false);
+
+  
+
