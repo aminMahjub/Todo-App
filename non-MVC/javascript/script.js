@@ -1,7 +1,20 @@
-let taskDataBase = [];
+let taskDataBase = [];  
 let status = "all";
 let countId = 0;
 const downloadBtn = document.querySelector(".download-btn");
+let saveTaskDataBase = localStorage.getItem('Todos');
+let saveId = localStorage.getItem('Id');
+
+if (saveTaskDataBase && saveId) {
+  localStorage.setItem('Todos', JSON.stringify(taskDataBase));
+  let todos = JSON.parse(saveTaskDataBase);
+  taskDataBase = todos;
+  localStorage.setItem('Id', countId);
+  countId = +saveId + 1;
+} else {
+  taskDataBase = [];
+  countId = 0;
+}
 
 function addTask() {
   const inputValue = document.querySelector("input");
@@ -29,6 +42,7 @@ function dataBase(text) {
 function renderPage() {
   const TodoList = document.querySelector(".todo-list");
   TodoList.innerHTML = "";
+
   const filteredDataBase = taskDataBase.filter((task) => {
     switch (status) {
       case "all": {
@@ -56,6 +70,7 @@ function renderPage() {
     Task.classList.add("li-item");
     Task.textContent = text;
     Task.id = `${id}`;
+    localStorage.setItem('Id', id);
     if (completeStatus) {
       Task.classList.remove("complete-btn");
       Task.classList.add("complete-status");
@@ -66,7 +81,52 @@ function renderPage() {
     createButton(Task);
     TodoList.appendChild(Task);
   });
+  localStorage.setItem('Todos', JSON.stringify(taskDataBase));
 }
+
+// function saveArray(todos) {
+//   const TodoList = document.querySelector(".todo-list");
+//   TodoList.innerHTML = "";
+//     for(let i = 0; i < todos.length; i++) {
+//     const filteredDataBase = todos.filter((task) => {
+//       switch (status) {
+//         case "all": {
+//           return true;
+//         }
+//         case "completed": {
+//           if (task.completeStatus) {
+//             return true;
+//           } else {
+//             return false;
+//           }
+//         }
+//         case "active": {
+//           if (!task.completeStatus) {
+//             return true;
+//           } else {
+//             return false;
+//           }
+//         }
+//       }
+//     });
+//     filteredDataBase.forEach(function (taskArry) {
+//       const { id, completeStatus, text , edit} = taskArry;
+//       const Task = document.createElement("li");
+//       Task.classList.add("li-item");
+//       Task.textContent = text;
+//       Task.id = `${id}`;
+//       if (completeStatus) {
+//         Task.classList.remove("complete-btn");
+//         Task.classList.add("complete-status");
+//       }
+//       if (edit) {
+//         Task.contentEditable = true;
+//       }
+//       createButton(Task);
+//       TodoList.appendChild(Task);
+//     });
+//   } 
+// }
 
 function createButton(Task) {
   const deleteButton = document.createElement("button");
@@ -144,25 +204,6 @@ function filterTask() {
   renderPage();
 }
 
-const downloadTodos = (filename, text) => {
-  const aElement = document.createElement('a');
-  aElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-  aElement.setAttribute('download', filename);
-  aElement.style.display = 'none';
-  document.body.appendChild(aElement);
-  aElement.click();
-  document.body.removeChild(aElement);
-}
-
-downloadBtn.addEventListener("click", () => {
-  debugger
-  if (taskDataBase.length == '0') alert('You do not add any todo task');
-  else {
-    const jsnoArr = JSON.stringify(taskDataBase);
-    let filename = "todos.json";
-    downloadTodos(filename, jsnoArr);
-  }
-},false);
-
+renderPage()
   
 
