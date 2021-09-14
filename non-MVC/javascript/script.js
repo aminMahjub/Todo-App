@@ -1,9 +1,10 @@
 let taskDataBase = [];  
 let status = "all";
 let countId = 0;
-const downloadBtn = document.querySelector(".download-btn");
+let filterDefault = document.querySelector('.default');
 let saveTaskDataBase = localStorage.getItem('Todos');
 let saveId = localStorage.getItem('Id');
+let saveStatus = localStorage.getItem('Status');
 
 if (saveTaskDataBase && saveId) {
   localStorage.setItem('Todos', JSON.stringify(taskDataBase));
@@ -11,6 +12,8 @@ if (saveTaskDataBase && saveId) {
   taskDataBase = todos;
   localStorage.setItem('Id', countId);
   countId = +saveId + 1;
+  status = saveStatus;
+
 } else {
   taskDataBase = [];
   countId = 0;
@@ -46,9 +49,11 @@ function renderPage() {
   const filteredDataBase = taskDataBase.filter((task) => {
     switch (status) {
       case "all": {
+        filterDefault.textContent = 'All';
         return true;
       }
       case "completed": {
+        filterDefault.textContent = 'Completed';
         if (task.completeStatus) {
           return true;
         } else {
@@ -56,6 +61,7 @@ function renderPage() {
         }
       }
       case "active": {
+        filterDefault.textContent = 'Active';
         if (!task.completeStatus) {
           return true;
         } else {
@@ -83,50 +89,6 @@ function renderPage() {
   });
   localStorage.setItem('Todos', JSON.stringify(taskDataBase));
 }
-
-// function saveArray(todos) {
-//   const TodoList = document.querySelector(".todo-list");
-//   TodoList.innerHTML = "";
-//     for(let i = 0; i < todos.length; i++) {
-//     const filteredDataBase = todos.filter((task) => {
-//       switch (status) {
-//         case "all": {
-//           return true;
-//         }
-//         case "completed": {
-//           if (task.completeStatus) {
-//             return true;
-//           } else {
-//             return false;
-//           }
-//         }
-//         case "active": {
-//           if (!task.completeStatus) {
-//             return true;
-//           } else {
-//             return false;
-//           }
-//         }
-//       }
-//     });
-//     filteredDataBase.forEach(function (taskArry) {
-//       const { id, completeStatus, text , edit} = taskArry;
-//       const Task = document.createElement("li");
-//       Task.classList.add("li-item");
-//       Task.textContent = text;
-//       Task.id = `${id}`;
-//       if (completeStatus) {
-//         Task.classList.remove("complete-btn");
-//         Task.classList.add("complete-status");
-//       }
-//       if (edit) {
-//         Task.contentEditable = true;
-//       }
-//       createButton(Task);
-//       TodoList.appendChild(Task);
-//     });
-//   } 
-// }
 
 function createButton(Task) {
   const deleteButton = document.createElement("button");
@@ -197,10 +159,14 @@ function completeTask(event) {
   }
   renderPage();
 }
+
 function filterTask() {
   const filterElement = document.getElementsByClassName("filter")[0];
   const filterELChild = filterElement.value.toLowerCase();
+  console.log(filterELChild);
   status = filterELChild;
+
+  localStorage.setItem('Status',status);
   renderPage();
 }
 

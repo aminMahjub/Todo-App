@@ -4,7 +4,6 @@
     padding: 0px;
     border: 0px;
     box-sizing:border-box;
-    overflow: hidden;
 }
 
 body {
@@ -46,6 +45,7 @@ body {
 
 .container {
     height: 100vh;
+    overflow: hidden;
     width: 100vw;
     background: rgba(0, 0, 0, 0.4);
 }
@@ -104,7 +104,6 @@ span {
     top: 170px;
     left: 19%;
     list-style-type: none;
-    overflow: hidden
 }
 
 li{
@@ -159,6 +158,10 @@ li{
       width: 4vw;
       height: 40px;
       text-align: center;
+}
+
+.default {
+    visibility: hidden;
 }
 
 @media only screen and (max-width: 1208px) {
