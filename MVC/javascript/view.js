@@ -4,6 +4,7 @@ class View {
     this.inputValue = document.querySelector("input");
     this.todoList = document.querySelector(".todo-list");
     this.filterElement = document.getElementsByClassName("filter")[0];
+    this.defaultFilter = document.querySelector('.default');
   }
 
   bindAddBtn = (handleBindAddBtn) => {
@@ -91,9 +92,25 @@ class View {
   };
 
   bindFilterTask = (handleFilterTasks) => {
+    debugger
     this.filterElement.addEventListener("change", event => {
       event.preventDefault();
       let filterELChild = this.filterElement.value.toLowerCase();
+      switch(filterELChild) {
+        case 'all': {
+          this.defaultFilter.textContent = 'All';
+          break
+        }
+        case 'completed': {
+          this.defaultFilter.textContent = 'Completed';
+          break
+        }
+        case 'active': {
+          this.defaultFilter.textContent = 'Active';
+          break
+        }
+
+      }
       handleFilterTasks(filterELChild);  
       })
   };

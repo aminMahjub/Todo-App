@@ -12,7 +12,6 @@ class Model {
       this.status = this.saveStatus;     
       console.log(this.saveStatus); 
     }
-    
   }
 
   bindRenderPage = (handleRenderPage) => {
@@ -63,7 +62,6 @@ class Model {
   };
 
   filterTasks = (handleFilterTasks) => {
-    debugger
     this.status = handleFilterTasks;
     let filterTask = this.tasksList.filter((task) => {
       switch (this.status) {
