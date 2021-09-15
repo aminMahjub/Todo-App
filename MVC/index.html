@@ -17,12 +17,13 @@
             <span>Todo List</span>
             <div class="todos-elements">
                 <input type="text" name="taskInput" class="task-input"/>
-                <select class="filter" onchange="filterTask()">
+                <select class="filter">
+                    <option class="default">filter</option>
                     <option class="all">All</option>
                     <option class="active">Active</option>
                     <option class="completed">Completed</option>
                 </select>
-                <button class="add-task" onclick="addTask()">add<button>
+                <button class="add-task">add<button>
                 <ol class="todo-list"></ol>
             </div>
         </div>

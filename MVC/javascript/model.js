@@ -1,11 +1,23 @@
 class Model {
   constructor() {
-    this.tasksList = [];
     this.status = "all";
+    this.saveStatus = localStorage.getItem('Status');
+    this.saveTodos = localStorage.getItem('Todos');
+    this.tasksList = [];
+
+    if (this.saveTodos) {
+      this.tasksList = JSON.parse(this.saveTodos); 
+    }
+    if (this.saveStatus) {
+      this.status = this.saveStatus;     
+      console.log(this.saveStatus); 
+    }
+    
   }
 
   bindRenderPage = (handleRenderPage) => {
     this.handleRenderPage = handleRenderPage;
+    this.filterTasks(this.status);
   };
 
   addData = (taskText) => {
@@ -18,6 +30,7 @@ class Model {
 
     this.tasksList.push(tasks);
     this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   };
 
   editTask = (handleEditTask) => {
@@ -28,6 +41,7 @@ class Model {
       }
     }
     this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList))
   };
 
   removeTask = (handleDeleteTask) => {
@@ -35,6 +49,7 @@ class Model {
       return task.id != handleDeleteTask;
     });
     this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList))
   };
 
   completeTask = (handleCompleteTask) => {
@@ -44,16 +59,20 @@ class Model {
       }
     }
     this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList))
   };
+
   filterTasks = (handleFilterTasks) => {
-    debugger;
+    debugger
     this.status = handleFilterTasks;
-    let filteredTask = this.tasksList.filter((task) => {
+    let filterTask = this.tasksList.filter((task) => {
       switch (this.status) {
         case "all": {
+          localStorage.setItem('Status', this.status);
           return true;
         }
         case "completed": {
+          localStorage.setItem('Status', this.status);
           if (task.done) {
             return true;
           } else {
@@ -61,6 +80,7 @@ class Model {
           }
         }
         case "active": {
+          localStorage.setItem('Status', this.status);
           if (!task.done) {
             return true;
           } else {
@@ -69,7 +89,7 @@ class Model {
         }
       }
     });
-    this.handleRenderPage(filteredTask);
+    this.handleRenderPage(filterTask);
   };
 }
 

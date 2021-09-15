@@ -18,17 +18,17 @@ class View {
   };
 
   renderPage = (taskList) => {
+
     this.todoList.innerHTML = "";
 
-    taskList.forEach((task) => {
-      const { text, id, done, edit } = task;
-      this.addTask(id, text, done, edit);
-    });
-    downloadTasks(taskList);
+    this.addTask(taskList);
   };
 
-  addTask = (id, text, done, edit) => {
+  addTask = (taskList) => {
+    taskList.forEach(element => {
+      const {id,edit,done,text} = element;
       let li = document.createElement("li");
+
       li.classList.add("li-item");
       li.textContent = text;
       li.id = `${id}`;
@@ -46,8 +46,8 @@ class View {
       this.bindCreateBtn("edit-btn", "Edit", li);
       this.bindCreateBtn("complete-btn", "Complete", li);
       this.todoList.appendChild(li);
-      
-  };
+    });
+  }
 
   bindCreateBtn = (classButton, btnText, li) => {
     let createButton = document.createElement("button");
@@ -97,20 +97,6 @@ class View {
       handleFilterTasks(filterELChild);  
       })
   };
-
-  downloadTasks = (taskList) => {
-    debugger
-    this.todoList.addEventListener("click", event => {
-      event.preventDefault();
-      let downloadBtn = event.targetl;
-      if (downloadBtn.classList.contains("download-btn")) {
-        const dataJSON = JSON.stringify(taskList);
-        console.log(dataJSON);
-      }
-
-    })
-  } 
 }
-
 
 export default View;

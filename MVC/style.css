@@ -104,7 +104,8 @@ span {
     top: 170px;
     left: 19%;
     list-style-type: none;
-    overflow: hidden
+    height: 300px;
+    overflow: auto;
 }
 
 li{

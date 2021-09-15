@@ -4,19 +4,19 @@ class Controller {
     this.model = Model;
 
     this.view.bindAddBtn(this.handleBindAddBtn);
-    this.model.bindRenderPage(this.handleRenderPage);
     this.view.bindCompleteBtn(this.handleCompleteTask);
     this.view.bindDeleteBtn(this.handleDeleteTask);
     this.view.bindEditBtn(this.handleEditTask);
     this.view.bindFilterTask(this.handleFilterTasks);
+    this.model.bindRenderPage(this.handleRenderPage);
   }
+
+  handleFilterTasks = (filterELChild) => {
+    this.model.filterTasks(filterELChild);
+  };
 
   handleBindAddBtn = (taskText) => {
     this.model.addData(taskText);
-  };
-
-  handleRenderPage = (taskList) => {
-    this.view.renderPage(taskList);
   };
 
   handleCompleteTask = (completeBtnId) => {
@@ -30,10 +30,11 @@ class Controller {
   handleEditTask = (editBtnParent) => {
     this.model.editTask(editBtnParent);
   };
-
-  handleFilterTasks = (filterELChild) => {
-    this.model.filterTasks(filterELChild);
+  
+  handleRenderPage = (taskList) => {
+    this.view.renderPage(taskList);
   };
+
 }
 
 export default Controller;
