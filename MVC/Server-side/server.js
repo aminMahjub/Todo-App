@@ -9,9 +9,15 @@ app.listen(9090, () => {
     console.log('Listening on the 9090');
 });
 
-app.post('/api', (req, res) => {
+app.post('/upload', (req, res) => {
     const data = JSON.stringify(req.body);
     fs.writeFile('../load-tasks.txt', data, (err) => {
         console.log(err);
     });
+})
+
+app.get('/download', (req, res) => {
+    fs.readFile('../load-tasks.txt', (err, data) => {
+        res.send(data);
+    })
 })

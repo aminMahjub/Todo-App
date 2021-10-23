@@ -139,7 +139,7 @@ li{
     margin: 2px 5px;
 }
 
-.upload-btn {
+.header-action {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,6 +151,10 @@ li{
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.upload-btn {
+    margin-right: 10px;
 }
 
 .default {
