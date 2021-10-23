@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-btn">
+            <button class="upload-btn">Upload</button>
+        </div>
+        <div class="cbody">
+            <span>Todo List</span>
+            <div class="todos-elements">
+                <input type="text" name="taskInput" class="task-input"/>
+                <select class="filter">
+                    <option class="default">filter</option>
+                    <option class="all">All</option>
+                    <option class="active">Active</option>
+                    <option class="completed">Completed</option>
+                </select>
+                <button class="add-task">add<button>
+                <ol class="todo-list"></ol>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./API/index.js"></script>
+</body>
+</html>

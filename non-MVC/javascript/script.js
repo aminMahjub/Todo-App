@@ -26,6 +26,7 @@ function addTask() {
     return;
   } else {
     dataBase(inputValue.value);
+    console.log(taskDataBase);
     renderPage();
     inputValue.value = "";
   }
@@ -38,6 +39,7 @@ function dataBase(text) {
     id: countId,
     edit: false,
   };
+
   countId++;
   taskDataBase.push(taskObj);
 }

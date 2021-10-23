@@ -1,0 +1,27 @@
+{
+  "name": "server-side",
+  "version": "1.0.0",
+  "description": "This is server for todo app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "json-server --watch db.json --port 9090 --no-cors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aminMahjub/Todo-App.git"
+  },
+  "keywords": [
+    "start"
+  ],
+  "author": "Amin Mahjoob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aminMahjub/Todo-App/issues"
+  },
+  "homepage": "https://github.com/aminMahjub/Todo-App#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
