@@ -11,13 +11,6 @@ class Model {
     if (this.saveStatus) {
       this.status = this.saveStatus;     
     }
-    this.option = {
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/json'
-      },
-      body: JSON.stringify(this.tasksList)
-    }
   }
 
   bindRenderPage = (handleRenderPage) => {
@@ -67,16 +60,24 @@ class Model {
     localStorage.setItem('Todos', JSON.stringify(this.tasksList))
   };
 
-  uploadTask = async() => {
+  uploadTask = async () => {
+    this.option = {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(this.tasksList)
+    }
     await fetch('http://localhost:9090/upload', this.option);
   }
 
   downloadTask = async () => {
-    debugger; 
-      const url = 'http://localhost:9090/download';
-      const res = await fetch(url);
-      const data = await res.json();
-      this.tasksList = data;
+    const url = 'http://localhost:9090/download';
+    const res = await fetch(url);
+    const data = await res.json();
+    this.tasksList = data;
+    this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   }
 
   filterTasks = (handleFilterTasks) => {
@@ -108,6 +109,5 @@ class Model {
     this.handleRenderPage(filterTask);
   };
 }
-
 
 export default Model;

@@ -1,12 +1,12 @@
 class View {
   constructor() {
-    debugger
     this.btnAdd = document.querySelector(".add-task");
     this.inputValue = document.querySelector("input");
     this.todoList = document.querySelector(".todo-list");
     this.filterElement = document.getElementsByClassName("filter")[0];
     this.defaultFilter = document.querySelector('.default');
     this.uploadBtn = document.querySelector('.upload-btn');
+    this.downlaodBtn = document.querySelector('.download-btn');
   }
 
   bindAddBtn = (handleBindAddBtn) => {
@@ -115,15 +115,20 @@ class View {
       })
   };
 
-  BindUploadTasks = (handleuploadTask) => {
-    this.todoList.addEventListener("click", (event) => {
+  bindUploadTasks = (handleUploadTask) => {
+    this.uploadBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      let uploadBtn = event.target;
-      if (uploadBtn.classList.contains("upload-btn")) {
-        handleuploadTask();
-      }
+      handleUploadTask();
     });
   }
+
+  bindDownlaodTasks = (handleDownloadTask) => {
+    this.downlaodBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      handleDownloadTask();
+    });
+  }
+  
 }
 
 export default View;

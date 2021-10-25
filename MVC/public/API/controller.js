@@ -8,7 +8,8 @@ class Controller {
     this.view.bindDeleteBtn(this.handleDeleteTask);
     this.view.bindEditBtn(this.handleEditTask);
     this.view.bindFilterTask(this.handleFilterTasks);
-    this.view.BindUploadTasks(this.handleuploadTask)
+    this.view.bindUploadTasks(this.handleUploadTask);
+    this.view.bindDownlaodTasks(this.handleDownloadTask);
     this.model.bindRenderPage(this.handleRenderPage);
   }
 
@@ -36,8 +37,12 @@ class Controller {
     this.view.renderPage(taskList);
   };
 
-  handleuploadTask = () => {
+  handleUploadTask = () => {
     this.model.uploadTask();
+  }
+
+  handleDownloadTask = () => {
+    this.model.downloadTask();
   }
 
 }
