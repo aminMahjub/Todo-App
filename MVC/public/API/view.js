@@ -1,5 +1,6 @@
 class View {
   constructor() {
+    debugger
     this.btnAdd = document.querySelector(".add-task");
     this.inputValue = document.querySelector("input");
     this.todoList = document.querySelector(".todo-list");
@@ -116,6 +117,7 @@ class View {
 
   BindUploadTasks = (handleuploadTask) => {
     this.todoList.addEventListener("click", (event) => {
+      event.preventDefault();
       let uploadBtn = event.target;
       if (uploadBtn.classList.contains("upload-btn")) {
         handleuploadTask();

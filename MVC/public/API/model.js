@@ -1,6 +1,3 @@
-const uploadBtn = document.querySelector('.upload-btn');
-const downloadBtn = document.querySelector('.download-btn');
-
 class Model {
   constructor() {
     this.status = "all";
@@ -74,12 +71,12 @@ class Model {
     await fetch('http://localhost:9090/upload', this.option);
   }
 
-  downloadTask = async() => {
-    const url = 'http://localhost:9090/download';
-    const res = await fetch(url);
-    const data = await res.json();
-    this.tasksList = data;
-    console.log(this.tasksList);
+  downloadTask = async () => {
+    debugger; 
+      const url = 'http://localhost:9090/download';
+      const res = await fetch(url);
+      const data = await res.json();
+      this.tasksList = data;
   }
 
   filterTasks = (handleFilterTasks) => {
@@ -112,14 +109,5 @@ class Model {
   };
 }
 
-uploadBtn.addEventListener('click', () => {  
-  const model = new Model();
-  model.uploadTask();
-})
-
-downloadBtn.addEventListener('click', () => {  
-  const model = new Model();
-  model.downloadTask();
-})
 
 export default Model;
