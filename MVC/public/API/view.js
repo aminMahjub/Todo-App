@@ -119,6 +119,7 @@ class View {
     this.uploadBtn.addEventListener("click", (event) => {
       event.preventDefault();
       handleUploadTask();
+      alert('data uploaded from app');
     });
   }
 
@@ -126,6 +127,7 @@ class View {
     this.downlaodBtn.addEventListener("click", (event) => {
       event.preventDefault();
       handleDownloadTask();
+      alert('data applied to app');
     });
   }
   
