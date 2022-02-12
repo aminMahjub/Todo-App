@@ -8,9 +8,9 @@ class Controller {
     this.view.bindDeleteBtn(this.handleDeleteTask);
     this.view.bindEditBtn(this.handleEditTask);
     this.view.bindFilterTask(this.handleFilterTasks);
-    this.view.bindUploadTasks(this.handleUploadTask);
-    this.view.bindDownlaodTasks(this.handleDownloadTask);
     this.model.bindRenderPage(this.handleRenderPage);
+    // this.view.bindUploadTasks(this.handleUploadTask);
+    // this.view.bindDownlaodTasks(this.handleDownloadTask);
   }
 
   handleFilterTasks = (filterELChild) => {
@@ -37,13 +37,13 @@ class Controller {
     this.view.renderPage(taskList);
   };
 
-  handleUploadTask = () => {
-    this.model.uploadTask();
-  }
+  // handleUploadTask = () => {
+  //   this.model.uploadTask();
+  // }
 
-  handleDownloadTask = () => {
-    this.model.downloadTask();
-  }
+  // handleDownloadTask = () => {
+  //   this.model.downloadTask();
+  // }
 
 }
 

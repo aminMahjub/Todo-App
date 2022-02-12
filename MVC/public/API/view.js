@@ -113,7 +113,7 @@ class View {
       }
       handleFilterTasks(filterELChild);  
       })
-  };
+  };  
 
   bindUploadTasks = (handleUploadTask) => {
     this.uploadBtn.addEventListener("click", (event) => {

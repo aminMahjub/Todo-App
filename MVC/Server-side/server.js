@@ -18,6 +18,32 @@ app.post('/upload', (req, res) => {
 
 app.get('/download', (req, res) => {
     fs.readFile('../load-tasks.txt', (err, data) => {
-        res.send(data);
+        res.sendFile(__dirname + './')
     })
+})
+
+app.get('/signin', (req, res) => {
+    res.sendFile('F:/CS internship/Project/Todo app/MVC/public/signin.htm');
+})
+
+app.post('/getusers', (req, res) => {
+    fs.readFile('../data-base.txt', (err, users) => {
+        res.sendFile(__dirname + './');
+    });
+
+    const data = JSON.stringify(req.body);
+    console.log(req.body);
+    fs.writeFile('../data-base.txt', data, (err) => {
+        console.log(err);    
+    });
+})
+
+app.get('/sendUsers', (req, res) => {
+    fs.readFile('../data-base.txt', (err, users) => {
+        res.send(users);
+    });
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile('F:/CS internship/Project/Todo app/MVC/public/singup.htm');
 })
