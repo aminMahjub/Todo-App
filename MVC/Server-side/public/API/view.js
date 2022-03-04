@@ -129,8 +129,7 @@ class View {
       handleDownloadTask();
       alert('data applied to app');
     });
-  }
-  
+  }  
 }
 
 export default View;

@@ -2,7 +2,7 @@ const { json } = require('express');
 const express = require('express');
 const fs = require('fs');
 const app = express();
-app.use(express.static('../public'));
+app.use(express.static('./public'));
 app.use(express.json());
 
 app.listen(9090, () => {
@@ -22,20 +22,20 @@ app.get('/download', (req, res) => {
     })
 })
 
-app.get('/signin', (req, res) => {
-    res.sendFile('F:/CS internship/Project/Todo app/MVC/public/signin.htm');
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/public/signup.htm');
 })
 
 app.post('/getusers', (req, res) => {
     fs.readFile('../data-base.txt', (err, users) => {
-        res.sendFile(__dirname + './');
+        res.send(users);
     });
 
-    const data = JSON.stringify(req.body);
-    console.log(req.body);
-    fs.writeFile('../data-base.txt', data, (err) => {
+    const users = JSON.stringify(req.body);
+    fs.writeFile('../data-base.txt', users, (err) => {
         console.log(err);    
     });
+
 })
 
 app.get('/sendUsers', (req, res) => {
@@ -45,5 +45,19 @@ app.get('/sendUsers', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile('F:/CS internship/Project/Todo app/MVC/public/singup.htm');
+    res.sendFile(__dirname + '/public/signin.htm');
+})
+
+app.post('/transportationuser', (req, res) => {
+    const data = JSON.stringify(req.body);
+    fs.writeFile('./user', data ,(err) => {
+        console.log(err);
+    })
+})
+
+app.get('/transportuser', (req, res) => {
+    fs.readFile('./user', (err, users) => {
+        res.send(users);
+
+    });
 })

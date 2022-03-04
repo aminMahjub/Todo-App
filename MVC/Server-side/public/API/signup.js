@@ -8,7 +8,7 @@ const submitBtn = document.querySelector('.submit-info');
 const submitDatas = () => {
     
     if (passwordInput.value != '' && usernameInput.value != '') {
-        dataBase.push({ userName: usernameInput.value, password: passwordInput.value});
+        dataBase.push({ userName: usernameInput.value, password: passwordInput.value, todo:[]});
 
         checkRegisteration();
         sendUsers();
@@ -25,9 +25,11 @@ const checkRegisteration = () => {
             if (passwordInput.value == password) {
                 dataBase.pop();
                 alert('Please choose another password');
-            } else {
-                window.location.href = "http://localhost:9090/";
             }
+        } else {
+            transportaitionUser();
+            sendUsers();
+            window.location.href = "http://localhost:9090/";
         }
     });
 }
@@ -44,18 +46,30 @@ const getUsers = async () => {
     console.log(dataBase);
 }
 
-const sendUsers = async() => {
+const sendUsers = async () => {
     const option = {
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/json'
-      },
-      body: JSON.stringify(dataBase)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataBase)
     }
 
     console.log(option.body);
 
     await fetch('http://localhost:9090/getusers', option);
+}
+
+const transportaitionUser = async () => {
+    const option = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([ passwordInput.value, usernameInput.value ])
+    }
+    console.log(option.body);
+    await fetch('http://localhost:9090/transportationuser', option);
 }
 
 submitBtn.addEventListener('click', submitDatas);
