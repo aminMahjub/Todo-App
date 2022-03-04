@@ -24,6 +24,7 @@ loginBtn.addEventListener('click', () => {
             if (usernameInput.value == userName && passwordInput.value == password) {
                 alert('Ok you Login in');
                 checkFalse = false;
+                transportaitionUser()
                 window.location.href = "http://localhost:9090/";
             }
         })
@@ -33,7 +34,18 @@ loginBtn.addEventListener('click', () => {
     } else {
         alert('Please Fill The Blankes');
     }
-
 });
+
+const transportaitionUser = async () => {
+    const option = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([ passwordInput.value, usernameInput.value, 'signin page' ])
+    }
+    console.log(option.body);
+    await fetch('http://localhost:9090/transportationuser', option);
+}
 
 getData();

@@ -1,24 +1,23 @@
 class Model {
   constructor() {
     this.status = "all";
-    this.saveStatus = localStorage.getItem('Status');
-    this.saveTodos = localStorage.getItem('Todos');
     this.tasksList = [];
     this.users = [];
-    this.validUser = { username: 'guest', password: null };
+    this.validUser = { username: 'guest', password: null, status: null };
+  }
 
+  bindRenderPage = async (handleRenderPage) => {
+    this.handleRenderPage = handleRenderPage;
+    await this.getUsers()
+    await this.saveTodoInUser();
+    this.saveStatus = localStorage.getItem('Status');
+    this.saveTodos = localStorage.getItem('Todos');
     if (this.saveTodos) {
       this.tasksList = JSON.parse(this.saveTodos); 
     }
     if (this.saveStatus) {
       this.status = this.saveStatus;     
     }
-  }
-
-  bindRenderPage = async(handleRenderPage) => {
-    this.handleRenderPage = handleRenderPage;
-    this.getUsers();
-    await this.saveTodoInUser();
     await this.filterTasks(this.status);
   };
 
@@ -45,6 +44,7 @@ class Model {
   };
 
   removeTask = (handleDeleteTask) => {
+    debugger
     this.tasksList = this.tasksList.filter((task) => {
       return task.id != handleDeleteTask;
     });
@@ -57,6 +57,7 @@ class Model {
         task.done = !task.done;
       }
     }
+    debugger
     this.saveTodoInUser();
   };
 
@@ -85,17 +86,17 @@ class Model {
     const data = await res.json();
     this.users = data; 
     console.log(this.users);
-    this.bindGetValidUser();
+    await this.bindGetValidUser();
   }
 
-  saveTodoInUser = () => {
-    this.users.forEach(user => {
+  saveTodoInUser = async() => {
+    this.users.forEach((user) => {
       if (user.userName == this.validUser.username) {
         if (user.password == this.validUser.password) {
-          user.todo = this.tasksList;
-          console.log(user.todo);
-          this.handleRenderPage(user.todo, this.users);
+          this.tasksList = user.todo;
+          console.log(user.todo, this.users);
           localStorage.setItem('Todos', JSON.stringify(user.todo));
+          this.handleRenderPage(user.todo);
           this.sendFinallTodoUser();
         }
       }
@@ -117,11 +118,11 @@ class Model {
     const url = 'http://localhost:9090/transportuser';
     const res = await fetch(url);
     const data = await res.json();
-    this.validUser = { username: data[1], password: data[0] }
+    this.validUser = { username: data[1], password: data[0] , status: data[2] }
     console.log(this.validUser);
   }
 
-  filterTasks = (handleFilterTasks) => {
+  filterTasks = async(handleFilterTasks) => {
     this.status = handleFilterTasks;
     let filterTask = this.tasksList.filter((task) => {
       switch (this.status) {

@@ -135,8 +135,30 @@ li{
 .header-btn {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 2px 5px;
+}
+
+.user-container-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-action-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin-left: 6px;
+    width: 100px;
+    border-radius: 9px;
+    background-color: cadetblue;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .header-action {
@@ -151,6 +173,17 @@ li{
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 5px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 8px;
+
 }
 
 .upload-btn {
