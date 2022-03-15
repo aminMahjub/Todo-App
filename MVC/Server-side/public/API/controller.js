@@ -9,6 +9,7 @@ class Controller {
     this.view.bindEditBtn(this.handleEditTask);
     this.view.bindFilterTask(this.handleFilterTasks);
     this.model.bindRenderPage(this.handleRenderPage);
+    this.model.bindUserInfo(this.handeUserInfo);
     this.view.bindUploadTasks(this.handleUploadTask);
     this.view.bindDownlaodTasks(this.handleDownloadTask);
   }
@@ -44,6 +45,11 @@ class Controller {
   handleDownloadTask = () => {
     this.model.downloadTask();
   }
+
+  handeUserInfo = (userInfo) => {
+    this.view.userInfo(userInfo)
+  }
+  
 
 }
 

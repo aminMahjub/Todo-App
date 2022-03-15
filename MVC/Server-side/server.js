@@ -18,7 +18,7 @@ app.post('/upload', (req, res) => {
 
 app.get('/download', (req, res) => {
     fs.readFile('../load-tasks.txt', (err, data) => {
-        res.sendFile(__dirname + './')
+        res.send(data);
     })
 })
 
@@ -27,19 +27,19 @@ app.get('/signup', (req, res) => {
 })
 
 app.post('/getusers', (req, res) => {
-    fs.readFile('../data-base.txt', (err, users) => {
+    fs.readFile('../load-tasks.txt', (err, users) => {
         res.send(users);
     });
 
     const users = JSON.stringify(req.body);
-    fs.writeFile('../data-base.txt', users, (err) => {
+    fs.writeFile('../load-tasks.txt', users, (err) => {
         console.log(err);    
     });
 
 })
 
 app.get('/sendUsers', (req, res) => {
-    fs.readFile('../data-base.txt', (err, users) => {
+    fs.readFile('../load-tasks.txt', (err, users) => {
         res.send(users);
     });
 })
@@ -58,6 +58,5 @@ app.post('/transportationuser', (req, res) => {
 app.get('/transportuser', (req, res) => {
     fs.readFile('./user', (err, users) => {
         res.send(users);
-
     });
 })

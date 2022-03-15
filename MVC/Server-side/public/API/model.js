@@ -3,23 +3,29 @@ class Model {
     this.status = "all";
     this.tasksList = [];
     this.users = [];
-    this.validUser = { username: 'guest', password: null, status: null };
-  }
-
-  bindRenderPage = async (handleRenderPage) => {
-    this.handleRenderPage = handleRenderPage;
-    await this.getUsers()
-    await this.saveTodoInUser();
     this.saveStatus = localStorage.getItem('Status');
     this.saveTodos = localStorage.getItem('Todos');
+    this.validUser = { username: 'guest', password: null, status: null };
+
+
     if (this.saveTodos) {
       this.tasksList = JSON.parse(this.saveTodos); 
     }
     if (this.saveStatus) {
       this.status = this.saveStatus;     
     }
+  }
+
+  bindRenderPage = async (handleRenderPage) => {
+    this.handleRenderPage = handleRenderPage;
+    console.log(window.performance);
+    await this.getUsers();
     await this.filterTasks(this.status);
   };
+
+  bindUserInfo = (handleUserInfo) => {
+    this.handleUserInfo = handleUserInfo;
+  }
 
   addData = (taskText) => {
     let tasks = {
@@ -30,7 +36,8 @@ class Model {
     };
     debugger
     this.tasksList.push(tasks);
-    this.saveTodoInUser();
+    this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   };
 
   editTask = (handleEditTask) => {
@@ -40,7 +47,8 @@ class Model {
         task.text = handleEditTask.childNodes[0].nodeValue;
       }
     }
-    this.saveTodoInUser();
+    this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   };
 
   removeTask = (handleDeleteTask) => {
@@ -48,7 +56,8 @@ class Model {
     this.tasksList = this.tasksList.filter((task) => {
       return task.id != handleDeleteTask;
     });
-    this.saveTodoInUser();
+    this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   };
 
   completeTask = (handleCompleteTask) => {
@@ -57,27 +66,32 @@ class Model {
         task.done = !task.done;
       }
     }
-    debugger
-    this.saveTodoInUser();
+    this.handleRenderPage(this.tasksList);
+    localStorage.setItem('Todos', JSON.stringify(this.tasksList));
   };
 
   uploadTask = async () => {
+    debugger
+    await this.saveTodoInUser('uploadtask');
+    console.log(this.users);
     this.option = {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json'
       },
-      body: JSON.stringify(this.tasksList)
+      body: JSON.stringify(this.users)
     }
     await fetch('http://localhost:9090/upload', this.option);
+
   }
 
   downloadTask = async () => {
     const url = 'http://localhost:9090/download';
     const res = await fetch(url);
     const data = await res.json();
-    this.tasksList = data;
-    this.saveTodoInUser();
+    this.users = data;
+    debugger
+    await this.saveTodoInUser('downloadtask');
   }
 
   getUsers = async () => {
@@ -89,14 +103,17 @@ class Model {
     await this.bindGetValidUser();
   }
 
-  saveTodoInUser = async() => {
+  saveTodoInUser = async(status) => {
     this.users.forEach((user) => {
       if (user.userName == this.validUser.username) {
         if (user.password == this.validUser.password) {
-          this.tasksList = user.todo;
           console.log(user.todo, this.users);
-          localStorage.setItem('Todos', JSON.stringify(user.todo));
-          this.handleRenderPage(user.todo);
+          if (status === 'downloadtask') {
+            this.tasksList = user.todo;
+            this.handleRenderPage(this.tasksList);
+          } else {
+            user.todo = this.tasksList;
+          }
           this.sendFinallTodoUser();
         }
       }
@@ -119,7 +136,7 @@ class Model {
     const res = await fetch(url);
     const data = await res.json();
     this.validUser = { username: data[1], password: data[0] , status: data[2] }
-    console.log(this.validUser);
+    this.handleUserInfo(this.validUser.username)
   }
 
   filterTasks = async(handleFilterTasks) => {
@@ -149,6 +166,7 @@ class Model {
       }
     });
     this.handleRenderPage(filterTask);
+    localStorage.setItem('Todos', JSON.stringify(filterTask));
   };
 }
 

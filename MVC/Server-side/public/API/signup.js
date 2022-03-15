@@ -3,6 +3,7 @@ let dataBase = [];
 const passwordInput = document.querySelector('#password');
 const usernameInput = document.querySelector('#username');
 const submitBtn = document.querySelector('.submit-info');
+const asGustBtn = document.querySelector('.as-gust-btn');
 
 
 const submitDatas = () => {
@@ -71,6 +72,22 @@ const transportaitionUser = async () => {
     console.log(option.body);
     await fetch('http://localhost:9090/transportationuser', option);
 }
+
+asGustBtn.addEventListener('click', async () => {
+    debugger
+    const option = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([null, 'gust', 'signup page'])
+    }
+    console.log(option.body);
+    fetch('http://localhost:9090/transportationuser', option);
+    
+    window.location.href = "http://localhost:9090/";
+
+});
 
 submitBtn.addEventListener('click', submitDatas);
 getUsers();

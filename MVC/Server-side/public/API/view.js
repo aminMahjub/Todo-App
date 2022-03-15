@@ -7,6 +7,7 @@ class View {
     this.defaultFilter = document.querySelector('.default');
     this.uploadBtn = document.querySelector('.upload-btn');
     this.downlaodBtn = document.querySelector('.download-btn');
+    this.username = document.querySelector('.user-name');
   }
 
   bindAddBtn = (handleBindAddBtn) => {
@@ -129,7 +130,11 @@ class View {
       handleDownloadTask();
       alert('data applied to app');
     });
-  }  
+  }
+  
+  userInfo = (userInfo) => {
+    this.username.textContent = userInfo;
+  }
 }
 
 export default View;
