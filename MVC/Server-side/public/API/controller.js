@@ -46,8 +46,8 @@ class Controller {
     this.model.downloadTask();
   }
 
-  handeUserInfo = (userInfo) => {
-    this.view.userInfo(userInfo)
+  handeUserInfo = (userInfo, userStatus) => {
+    this.view.userInfo(userInfo, userStatus)
   }
   
 

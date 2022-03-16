@@ -111,10 +111,11 @@ class Model {
           if (status === 'downloadtask') {
             this.tasksList = user.todo;
             this.handleRenderPage(this.tasksList);
+            localStorage.setItem('Todos', JSON.stringify(this.tasksList));
           } else {
             user.todo = this.tasksList;
+            this.sendFinallTodoUser();
           }
-          this.sendFinallTodoUser();
         }
       }
     });
@@ -136,7 +137,7 @@ class Model {
     const res = await fetch(url);
     const data = await res.json();
     this.validUser = { username: data[1], password: data[0] , status: data[2] }
-    this.handleUserInfo(this.validUser.username)
+    this.handleUserInfo(this.validUser.username, this.validUser.status);
   }
 
   filterTasks = async(handleFilterTasks) => {

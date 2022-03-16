@@ -67,7 +67,7 @@ const transportaitionUser = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify([ passwordInput.value, usernameInput.value, 'signup page' ])
+        body: JSON.stringify([ passwordInput.value, usernameInput.value, 'realuser' ])
     }
     console.log(option.body);
     await fetch('http://localhost:9090/transportationuser', option);
@@ -80,7 +80,7 @@ asGustBtn.addEventListener('click', async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify([null, 'gust', 'signup page'])
+        body: JSON.stringify([null, 'gust', 'gustuser'])
     }
     console.log(option.body);
     fetch('http://localhost:9090/transportationuser', option);

@@ -8,8 +8,11 @@ class View {
     this.uploadBtn = document.querySelector('.upload-btn');
     this.downlaodBtn = document.querySelector('.download-btn');
     this.username = document.querySelector('.user-name');
+    this.signUpLink = document.querySelector('.signup-link')
+    this.signInLink = document.querySelector('.signin-link')
+    this.signaOutLink = document.querySelector('.signout-link')
   }
-
+  
   bindAddBtn = (handleBindAddBtn) => {
     this.btnAdd.addEventListener("click", (event) => {
       event.preventDefault();
@@ -132,8 +135,17 @@ class View {
     });
   }
   
-  userInfo = (userInfo) => {
+  userInfo = (userInfo, userStatus) => {
     this.username.textContent = userInfo;
+    debugger
+    if (userStatus === 'realuser') {
+      this.signInLink.style.display = 'none';
+      this.signUpLink.style.display = 'none';
+    } else {
+      this.signInLink.style.display = 'none';
+      this.signaOutLink.style.display = 'none';
+    }
+
   }
 }
 

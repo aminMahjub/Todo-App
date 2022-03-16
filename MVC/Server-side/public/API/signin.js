@@ -42,7 +42,7 @@ const transportaitionUser = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify([ passwordInput.value, usernameInput.value, 'signin page' ])
+        body: JSON.stringify([ passwordInput.value, usernameInput.value, 'realuser' ])
     }
     console.log(option.body);
     await fetch('http://localhost:9090/transportationuser', option);
